@@ -1,0 +1,68 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="card card-sm" method="get">
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col">
+                        <input name="item_name" type="search" placeholder="Search for products" class="form-control form-control-borderless"> 
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-success" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        {% for product in product_objects %}
+            <div class="col-md-4">
+                <div class="card">
+                    <a href="{% url 'detail' product.id %}">
+                        <img id="img{{ product.id }}" src="{% static 'shop/images/' %}{{ product.image }}" class="card-img-top" alt="Image">
+                        <div class="card-body">
+                            <div id="nm{{ product.id }}" class="card-title">{{ product.title }}</div>
+                            <div id="price{{ product.id }}" class="card-text">{{ product.price }}</div>
+                        </div>
+                    </a>
+                    <button id="{{ product.id }}" class="btn atc btn-warning px-2 ml-2 mr-2 mb-2" type="button">Add To Cart</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-3 offset-md-4">
+            <ul class="pagination">
+                {% if product_objects.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ product_objects.previous_page_number }}">Previous</a>
+                    </li>
+                {% endif %}
+                {% for i in product_objects.paginator.page_range %}
+                    {% if product_objects.number == i %}
+                        <li class="page-item active">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% if product_objects.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ product_objects.next_page_number }}">Next</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'shop/index.js' %}"></script>
+{% endblock %}

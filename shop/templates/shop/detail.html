@@ -1,0 +1,43 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+
+{% block body %}
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-md-6">
+               <div class="row">
+                  <div class="col-md-12">
+                     <img src="{% static 'shop/images/' %}{{ product_object.image }}" class="card-img-top" alt="Image">
+                  </div>
+               </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="row">
+                   <div class="col-md-12">
+                      {{ product_object.title }}
+                   </div>
+                </div>
+                <div class="row">
+                   <div class="col-md-12">
+                      {{ product_object.price }}
+                   </div>
+                </div>
+                <div class="row">
+                   <div class="col-md-12">
+                      {{ product_object.discount_price }}
+                   </div>
+                </div>
+                <div class="row">
+                   <div class="col-md-12">
+                      {{ product_object.description }}
+                   </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}
+
